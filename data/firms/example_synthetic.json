@@ -1,0 +1,69 @@
+{
+  "firm": "SYNTHETIC_FIRM",
+  "plan_name": "Synthetic 2-Step 200K",
+  "verified": false,
+  "sources": [],
+  "account_size": 200000,
+  "currency": "USD",
+  "fees": {
+    "entry": 1200.0,
+    "reset": null,
+    "activation": 0.0,
+    "recurring_monthly": 0.0,
+    "refund": {
+      "type": "first_payout",
+      "amount": "entry"
+    }
+  },
+  "stages": [
+    {
+      "name": "step1",
+      "profit_target_pct": 0.10,
+      "min_trading_days": 4,
+      "max_trading_days": null,
+      "max_drawdown": {
+        "pct": 0.10,
+        "type": "static",
+        "basis": "balance",
+        "timing": "end_of_day"
+      },
+      "daily_loss_pct": 0.05,
+      "consistency_rule": null,
+      "profitable_days_requirement": null
+    },
+    {
+      "name": "step2",
+      "profit_target_pct": 0.05,
+      "min_trading_days": 4,
+      "max_trading_days": null,
+      "max_drawdown": {
+        "pct": 0.10,
+        "type": "static",
+        "basis": "balance",
+        "timing": "end_of_day"
+      },
+      "daily_loss_pct": 0.05,
+      "consistency_rule": null,
+      "profitable_days_requirement": null
+    }
+  ],
+  "funded": {
+    "profit_split": 0.80,
+    "payout": {
+      "min_profit_pct": 0.10,
+      "min_days": 14,
+      "p_received_given_eligible": 1.0
+    },
+    "max_drawdown": {
+      "pct": 0.10,
+      "type": "static",
+      "basis": "balance",
+      "timing": "end_of_day"
+    },
+    "restrictions": {
+      "news_trading": "unknown",
+      "overnight": "unknown",
+      "weekend": "unknown"
+    }
+  }
+}

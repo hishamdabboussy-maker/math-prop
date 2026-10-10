@@ -1,0 +1,9 @@
+Metadata-Version: 2.4
+Name: math-prop
+Version: 0.0.1
+Summary: Research simulator for proprietary trading firm evaluations and funded accounts
+Requires-Python: >=3.10
+Requires-Dist: pydantic>=2.7
+Requires-Dist: jsonschema>=4.21
+Provides-Extra: dev
+Requires-Dist: pytest>=8.0; extra == "dev"

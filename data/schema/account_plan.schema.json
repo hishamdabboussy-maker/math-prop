@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Prop Firm Account Plan",
+  "type": "object",
+  "required": ["firm", "plan_name", "account_size", "currency", "fees", "stages", "funded"],
+  "properties": {
+    "firm": { "type": "string" },
+    "plan_name": { "type": "string" },
+    "verified": { "type": "boolean" },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["url", "date_accessed", "status"],
+        "properties": {
+          "url": { "type": "string" },
+          "date_accessed": { "type": "string" },
+          "quote": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["verified", "ambiguous", "conflicting", "unavailable"]
+          },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "account_size": { "type": "number", "exclusiveMinimum": 0 },
+    "currency": { "type": "string" },
+    "fees": {
+      "type": "object",
+      "required": ["entry"],
+      "properties": {
+        "entry": { "type": "number", "minimum": 0 },
+        "reset": { "type": ["number", "null"], "minimum": 0 },
+        "activation": { "type": ["number", "null"], "minimum": 0 },
+        "recurring_monthly": { "type": ["number", "null"], "minimum": 0 },
+        "refund": {
+          "type": ["object", "null"],
+          "properties": {
+            "type": { "type": "string", "enum": ["first_payout", "never"] },
+            "amount": {
+              "oneOf": [
+                { "type": "string", "enum": ["entry"] },
+                { "type": "number", "minimum": 0 }
+              ]
+            }
+          },
+          "required": ["type", "amount"]
+        }
+      }
+    },
+    "stages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "profit_target_pct", "max_drawdown"],
+        "properties": {
+          "name": { "type": "string" },
+          "profit_target_pct": { "type": "number" },
+          "min_trading_days": { "type": ["integer", "null"], "minimum": 0 },
+          "max_trading_days": { "type": ["integer", "null"], "minimum": 0 },
+          "max_drawdown": {
+            "type": "object",
+            "required": ["pct", "type", "basis", "timing"],
+            "properties": {
+              "pct": { "type": "number", "minimum": 0 },
+              "type": { "type": "string", "enum": ["static", "trailing"] },
+              "basis": { "type": "string", "enum": ["balance", "equity"] },
+              "timing": { "type": "string", "enum": ["intraday", "end_of_day"] }
+            }
+          },
+          "daily_loss_pct": { "type": ["number", "null"] },
+          "consistency_rule": {
+            "type": ["object", "null"],
+            "properties": {
+              "max_best_day_fraction": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          },
+          "profitable_days_requirement": {
+            "type": ["object", "null"],
+            "properties": {
+              "min_profitable_days": { "type": "integer", "minimum": 0 },
+              "min_daily_return_pct": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "funded": {
+      "type": "object",
+      "required": ["profit_split"],
+      "properties": {
+        "profit_split": { "type": "number" },
+        "payout": {
+          "type": "object",
+          "properties": {
+            "min_profit_pct": { "type": ["number", "null"] },
+            "min_days": { "type": ["integer", "null"], "minimum": 0 },
+            "p_received_given_eligible": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "max_drawdown": {
+          "type": "object",
+          "required": ["pct", "type", "basis", "timing"],
+          "properties": {
+            "pct": { "type": "number", "minimum": 0 },
+            "type": { "type": "string", "enum": ["static", "trailing"] },
+            "basis": { "type": "string", "enum": ["balance", "equity"] },
+            "timing": { "type": "string", "enum": ["intraday", "end_of_day"] }
+          }
+        },
+        "restrictions": {
+          "type": "object",
+          "properties": {
+            "news_trading": { "type": "string" },
+            "overnight": { "type": "string" },
+            "weekend": { "type": "string" }
+          },
+          "additionalProperties": true
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
+

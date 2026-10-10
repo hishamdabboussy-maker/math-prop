@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+src/math_prop.egg-info/PKG-INFO
+src/math_prop.egg-info/SOURCES.txt
+src/math_prop.egg-info/dependency_links.txt
+src/math_prop.egg-info/requires.txt
+src/math_prop.egg-info/top_level.txt
+src/propfirm_ev/__init__.py
+src/propfirm_ev/config.py
+src/propfirm_ev/models.py
+tests/test_config.py
